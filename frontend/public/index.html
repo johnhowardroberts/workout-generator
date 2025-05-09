@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-pink: #ff2e88;
-            --neon-blue: #00f3ff;
-            --neon-purple: #b026ff;
-            --neon-green: #39ff14;
+            --neon-blue: #00a8ff;
+            --neon-purple: #9d4edd;
+            --neon-green: #2ecc71;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
         }
 
         body {
-            background-color: #0a0a0a;
-            font-family: 'Press Start 2P', cursive;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
+            background-color: var(--bg-color);
+            font-family: 'VT323', monospace;
+            color: #2d3748;
+            line-height: 1.6;
         }
 
         .container {
@@ -28,48 +30,47 @@
         }
 
         h1 {
-            color: var(--neon-pink);
-            text-shadow: 0 0 10px var(--neon-pink),
-                         0 0 20px var(--neon-pink),
-                         0 0 30px var(--neon-pink);
+            color: var(--neon-purple);
+            text-shadow: 2px 2px 0px rgba(157, 78, 221, 0.2);
             margin-bottom: 2rem;
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-align: center;
+            letter-spacing: 2px;
         }
 
         .form-container {
-            background-color: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--neon-purple);
-            box-shadow: 0 0 20px var(--neon-purple);
-            border-radius: 8px;
+            background-color: var(--card-bg);
+            border: 3px solid var(--neon-purple);
+            box-shadow: 4px 4px 0px rgba(157, 78, 221, 0.2);
+            border-radius: 12px;
             padding: 2rem;
             margin-top: 2rem;
         }
 
         label {
             color: var(--neon-green);
-            text-shadow: 0 0 5px var(--neon-green);
-            font-size: 0.8rem;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
             display: block;
+            letter-spacing: 1px;
         }
 
         input {
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: var(--bg-color);
             border: 2px solid var(--neon-blue);
-            color: white;
+            color: #2d3748;
             padding: 0.75rem;
             width: 100%;
             margin-bottom: 1.5rem;
-            border-radius: 4px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
+            border-radius: 8px;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            box-shadow: 0 0 15px var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.2);
             border-color: var(--neon-blue);
         }
 
@@ -79,62 +80,73 @@
             border: none;
             padding: 1rem;
             width: 100%;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-shadow: 0 0 5px white;
-            box-shadow: 0 0 10px var(--neon-purple);
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px rgba(157, 78, 221, 0.2);
         }
 
         button:hover {
-            background-color: var(--neon-pink);
-            box-shadow: 0 0 20px var(--neon-pink);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(157, 78, 221, 0.2);
+        }
+
+        button:active {
+            transform: translate(0px, 0px);
+            box-shadow: 2px 2px 0px rgba(157, 78, 221, 0.2);
         }
 
         button:disabled {
             opacity: 0.7;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: 4px 4px 0px rgba(157, 78, 221, 0.2);
         }
 
         #workoutPlan {
             margin-top: 2rem;
             padding: 1.5rem;
-            background-color: rgba(0, 0, 0, 0.6);
-            border: 2px solid var(--neon-green);
-            border-radius: 8px;
-            box-shadow: 0 0 15px var(--neon-green);
+            background-color: var(--card-bg);
+            border: 3px solid var(--neon-green);
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px rgba(46, 204, 113, 0.2);
         }
 
         #workoutPlan h2 {
             color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
             margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
 
         #workoutContent {
-            color: white;
-            font-size: 0.7rem;
+            color: #2d3748;
+            font-size: 1.1rem;
             line-height: 1.6;
             white-space: pre-wrap;
         }
 
         #error {
             color: var(--neon-pink);
-            text-shadow: 0 0 5px var(--neon-pink);
-            font-size: 0.7rem;
+            font-size: 1.1rem;
             margin-top: 1rem;
         }
 
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px var(--neon-blue); }
-            50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
-            100% { text-shadow: 0 0 10px var(--neon-blue); }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
 
         .loading {
-            animation: glow 1.5s infinite;
+            animation: pulse 1.5s infinite;
+        }
+
+        ::placeholder {
+            color: #a0aec0;
+            opacity: 0.7;
         }
     </style>
 </head>
