@@ -64,7 +64,7 @@ end
 workout_generator = WorkoutGenerator.new
 
 # Configure Sinatra
-set :port, 4567
+set :port, ENV['PORT'] || 4567
 set :bind, '0.0.0.0'
 
 # Enable CORS
@@ -95,4 +95,4 @@ post '/generate-workout' do
 end
 
 # Start the server
-puts "Starting workout generator API server on http://localhost:4567" 
+puts "Starting workout generator API server on port #{ENV['PORT'] || 4567}" 
