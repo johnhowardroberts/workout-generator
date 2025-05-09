@@ -1,4 +1,4 @@
-FROM ruby:2.6.10-slim
+FROM ruby:3.1.4
 
 WORKDIR /app
 
@@ -18,6 +18,10 @@ COPY . .
 
 # Expose the port the app runs on
 EXPOSE 4567
+
+# Set environment variables
+ENV RACK_ENV=production
+ENV PORT=4567
 
 # Command to run the application
 CMD ["bundle", "exec", "ruby", "workout_generator.rb"] 

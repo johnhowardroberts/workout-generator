@@ -63,6 +63,10 @@ workout_generator = WorkoutGenerator.new
 # Configure Sinatra
 set :port, ENV['PORT'] || 4567
 set :bind, '0.0.0.0'
+set :environment, :production
+set :logging, true
+set :dump_errors, true
+set :show_exceptions, true
 
 # Configure CORS
 use Rack::Cors do
@@ -96,14 +100,26 @@ end
 post '/generate-workout' do
   content_type :json
   
-  request_payload = JSON.parse(request.body.read)
-  duration = request_payload['duration']
-  target_area = request_payload['targetArea']
-  equipment = request_payload['equipment']
+  begin
+    request_payload = JSON.parse(request.body.read)
+    duration = request_payload['duration']
+    target_area = request_payload['targetArea']
+    equipment = request_payload['equipment']
 
-  workout_plan = workout_generator.generate_workout(duration, target_area, equipment)
-  
-  { workoutPlan: workout_plan }.to_json
+    workout_plan = workout_generator.generate_workout(duration, target_area, equipment)
+    
+    { workoutPlan: workout_plan }.to_json
+  rescue => e
+    status 400
+    { error: e.message }.to_json
+  end
+end
+
+# Error handling
+error do
+  content_type :json
+  status 500
+  { error: env['sinatra.error'].message }.to_json
 end
 
 # Start the server
