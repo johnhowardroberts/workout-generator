@@ -47,6 +47,64 @@
             margin-top: 2rem;
         }
 
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--neon-purple);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--neon-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--neon-purple);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            color: white;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         label {
             color: var(--neon-green);
             font-size: 1.2rem;
@@ -74,18 +132,24 @@
             border-color: var(--neon-blue);
         }
 
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
         button {
             background-color: var(--neon-purple);
             color: white;
             border: none;
             padding: 1rem;
-            width: 100%;
             font-family: 'VT323', monospace;
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             border-radius: 8px;
             box-shadow: 4px 4px 0px rgba(157, 78, 221, 0.2);
+            flex: 1;
         }
 
         button:hover {
@@ -103,6 +167,10 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: 4px 4px 0px rgba(157, 78, 221, 0.2);
+        }
+
+        button.secondary {
+            background-color: var(--neon-blue);
         }
 
         #workoutPlan {
@@ -155,32 +223,52 @@
         <h1>SQUEEZE IN A WFH WORKOUT</h1>
         
         <div class="form-container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">1</div>
+                <div class="progress-step" data-step="2">2</div>
+                <div class="progress-step" data-step="3">3</div>
+                <div class="progress-step" data-step="4">4</div>
+            </div>
+
             <form id="workoutForm">
-                <div>
+                <div class="form-step active" data-step="1">
                     <label for="duration">How long do you have to exercise today?</label>
                     <input type="text" id="duration" name="duration" required
                         placeholder="e.g., I have 30 minutes, or just a quick 15-minute session">
+                    <div class="button-group">
+                        <button type="button" class="next-step">Next</button>
+                    </div>
                 </div>
 
-                <div>
+                <div class="form-step" data-step="2">
                     <label for="exerciseType">What kind of exercise would you like to do today?</label>
                     <input type="text" id="exerciseType" name="exerciseType" required
                         placeholder="e.g., strength training, HIIT, yoga, mobility work, or cardio">
+                    <div class="button-group">
+                        <button type="button" class="prev-step secondary">Back</button>
+                        <button type="button" class="next-step">Next</button>
+                    </div>
                 </div>
 
-                <div>
+                <div class="form-step" data-step="3">
                     <label for="targetArea">Which area of the body would you like to focus on?</label>
                     <input type="text" id="targetArea" name="targetArea" required
                         placeholder="e.g., upper body, full body, core, biceps, or legs">
+                    <div class="button-group">
+                        <button type="button" class="prev-step secondary">Back</button>
+                        <button type="button" class="next-step">Next</button>
+                    </div>
                 </div>
 
-                <div>
+                <div class="form-step" data-step="4">
                     <label for="equipment">What equipment do you have available?</label>
                     <input type="text" id="equipment" name="equipment" required
                         placeholder="e.g., I have some dumbbells and a yoga mat, or just my bodyweight">
+                    <div class="button-group">
+                        <button type="button" class="prev-step secondary">Back</button>
+                        <button type="submit">Generate My Workout Plan</button>
+                    </div>
                 </div>
-
-                <button type="submit">Generate My Workout Plan</button>
             </form>
 
             <div id="workoutPlan" class="hidden">
@@ -194,6 +282,46 @@
 
     <script>
         const API_URL = 'https://workout-generator-0oa9.onrender.com';
+        
+        // Form navigation
+        document.querySelectorAll('.next-step').forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.form-step');
+                const nextStep = currentStep.nextElementSibling;
+                
+                // Validate current step
+                const input = currentStep.querySelector('input');
+                if (!input.value.trim()) {
+                    input.focus();
+                    return;
+                }
+
+                // Update progress bar
+                const currentStepNum = parseInt(currentStep.dataset.step);
+                document.querySelector(`.progress-step[data-step="${currentStepNum}"]`).classList.add('completed');
+                document.querySelector(`.progress-step[data-step="${currentStepNum + 1}"]`).classList.add('active');
+
+                // Show next step
+                currentStep.classList.remove('active');
+                nextStep.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.prev-step').forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.form-step');
+                const prevStep = currentStep.previousElementSibling;
+                
+                // Update progress bar
+                const currentStepNum = parseInt(currentStep.dataset.step);
+                document.querySelector(`.progress-step[data-step="${currentStepNum}"]`).classList.remove('active');
+                document.querySelector(`.progress-step[data-step="${currentStepNum - 1}"]`).classList.remove('completed');
+
+                // Show previous step
+                currentStep.classList.remove('active');
+                prevStep.classList.add('active');
+            });
+        });
         
         document.getElementById('workoutForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -239,7 +367,7 @@
                 console.error('Error:', error);
             } finally {
                 submitButton.disabled = false;
-                submitButton.textContent = 'GENERATE WORKOUT';
+                submitButton.textContent = 'Generate My Workout Plan';
                 submitButton.classList.remove('loading');
             }
         });
