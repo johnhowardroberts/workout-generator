@@ -10,6 +10,10 @@ declare module "@remix-run/node" {
 
 export default defineConfig({
   base: "/workout-generator/",
+  build: {
+    outDir: "dist/client",
+    emptyOutDir: true,
+  },
   plugins: [
     remix({
       future: {
