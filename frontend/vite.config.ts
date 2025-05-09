@@ -9,6 +9,7 @@ declare module "@remix-run/node" {
 }
 
 export default defineConfig({
+  base: "/workout-generator/",
   plugins: [
     remix({
       future: {

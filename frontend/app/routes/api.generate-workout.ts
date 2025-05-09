@@ -1,6 +1,8 @@
 import { json } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
 
+const BACKEND_URL = process.env.BACKEND_URL || "http://127.0.0.1:4567";
+
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
     return json({ error: "Method not allowed" }, { status: 405 });
@@ -10,7 +12,7 @@ export const action: ActionFunction = async ({ request }) => {
     const { duration, targetArea, equipment } = await request.json();
 
     // Call the Ruby backend
-    const response = await fetch("http://127.0.0.1:4567/generate-workout", {
+    const response = await fetch(`${BACKEND_URL}/generate-workout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error) {
     console.error("Error:", error);
     return json({ 
-      error: "Failed to generate workout. Please ensure the backend server is running at http://127.0.0.1:4567",
+      error: "Failed to generate workout. Please ensure the backend server is running.",
       details: error instanceof Error ? error.message : String(error)
     }, { status: 500 });
   }
