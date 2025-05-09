@@ -5,6 +5,7 @@ services:
     rubyVersion: 3.1.4
     buildCommand: |
       gem install bundler
+      bundle config set --local deployment 'false'
       bundle install
     startCommand: bundle exec ruby workout_generator.rb
     envVars:
