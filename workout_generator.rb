@@ -77,7 +77,6 @@ use Rack::Cors do
     resource '*',
       headers: :any,
       methods: [:get, :post, :options],
-      credentials: true,
       max_age: 86400
   end
 end
