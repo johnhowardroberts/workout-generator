@@ -2,10 +2,8 @@ services:
   - type: web
     name: workout-generator-api
     env: ruby
-    rubyVersion: 3.1.4
-    buildCommand: |
-      gem install bundler:2.4.22
-      bundle _2.4.22_ install --jobs=4 --retry=3
+    rubyVersion: 3.2.2
+    buildCommand: bundle install
     startCommand: bundle exec ruby workout_generator.rb
     envVars:
       - key: OPENAI_API_KEY
