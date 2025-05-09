@@ -2,7 +2,7 @@ import { json } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
 
 const BACKEND_URL = process.env.NODE_ENV === "production" 
-  ? "https://workout-generator-api.onrender.com"
+  ? "https://workout-generator-0oa9.onrender.com"
   : "http://127.0.0.1:4567";
 
 export const action: ActionFunction = async ({ request }) => {
