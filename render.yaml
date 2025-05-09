@@ -2,9 +2,9 @@ services:
   - type: web
     name: workout-generator-api
     env: ruby
-    rubyVersion: 2.7.8
+    rubyVersion: 3.1.4
     buildCommand: |
-      gem install bundler:2.4.22
+      gem install bundler
       bundle install
     startCommand: bundle exec ruby workout_generator.rb
     envVars:
