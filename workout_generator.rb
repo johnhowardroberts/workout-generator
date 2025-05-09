@@ -2,12 +2,9 @@ require 'openai'
 require 'dotenv/load'
 require 'sinatra'
 require 'json'
+require 'rack/cors'
 
 class WorkoutGenerator
-  VALID_DURATIONS = [10, 15, 20, 30, 45, 60]
-  VALID_TARGET_AREAS = ['full body', 'upper body', 'lower body', 'chest', 'back', 'arms', 'legs', 'core']
-  VALID_EQUIPMENT = ['none', 'dumbbells', 'kettlebells', 'resistance bands', 'pull-up bar', 'bench']
-
   def initialize
     if ENV['OPENAI_API_KEY'].nil? || ENV['OPENAI_BASE_URL'].nil?
       puts "Error: Missing required environment variables"
@@ -67,18 +64,14 @@ workout_generator = WorkoutGenerator.new
 set :port, ENV['PORT'] || 4567
 set :bind, '0.0.0.0'
 
-# Enable CORS
-before do
-  response.headers["Access-Control-Allow-Origin"] = "*"
-  response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-  response.headers["Access-Control-Allow-Headers"] = "*"
-end
-
-options "*" do
-  response.headers["Access-Control-Allow-Origin"] = "*"
-  response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-  response.headers["Access-Control-Allow-Headers"] = "*"
-  200
+# Configure CORS
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :options]
+  end
 end
 
 # API endpoint
