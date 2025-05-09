@@ -2,8 +2,11 @@ source 'https://rubygems.org'
 
 ruby '3.1.4'
 
-gem 'ruby-openai'
-gem 'dotenv'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'webrick' 
+gem 'dotenv'
+gem 'ruby-openai'
+gem 'rack-cors'
+gem 'webrick'
+
+# ... existing code ... 
