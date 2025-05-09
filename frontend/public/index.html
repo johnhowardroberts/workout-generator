@@ -5,46 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff2e88;
+            --neon-blue: #00f3ff;
+            --neon-purple: #b026ff;
+            --neon-green: #39ff14;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Press Start 2P', cursive;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink),
+                         0 0 20px var(--neon-pink),
+                         0 0 30px var(--neon-pink);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        label {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-blue);
+            color: white;
+            padding: 0.75rem;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-blue);
+            border-color: var(--neon-blue);
+        }
+
+        button {
+            background-color: var(--neon-purple);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px white;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        button:hover {
+            background-color: var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        #workoutPlan {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        #workoutPlan h2 {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        #workoutContent {
+            color: white;
+            font-size: 0.7rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        #error {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+            font-size: 0.7rem;
+            margin-top: 1rem;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px var(--neon-blue); }
+            50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+            100% { text-shadow: 0 0 10px var(--neon-blue); }
+        }
+
+        .loading {
+            animation: glow 1.5s infinite;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-8">Workout Generator</h1>
+<body>
+    <div class="container">
+        <h1>WORKOUT GENERATOR</h1>
         
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-            <form id="workoutForm" class="space-y-4">
+        <div class="form-container">
+            <form id="workoutForm">
                 <div>
-                    <label for="duration" class="block text-sm font-medium text-gray-700">How long would you like your workout to be?</label>
+                    <label for="duration">WORKOUT DURATION</label>
                     <input type="text" id="duration" name="duration" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        placeholder="e.g., about 30 minutes, a quick 15-minute session">
+                        placeholder="e.g., 30 MINUTES">
                 </div>
 
                 <div>
-                    <label for="targetArea" class="block text-sm font-medium text-gray-700">What would you like to focus on?</label>
+                    <label for="targetArea">TARGET AREA</label>
                     <input type="text" id="targetArea" name="targetArea" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        placeholder="e.g., I want to work on my upper body, focus on core strength">
+                        placeholder="e.g., UPPER BODY">
                 </div>
 
                 <div>
-                    <label for="equipment" class="block text-sm font-medium text-gray-700">What equipment do you have available?</label>
+                    <label for="equipment">AVAILABLE EQUIPMENT</label>
                     <input type="text" id="equipment" name="equipment" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        placeholder="e.g., I have some light dumbbells and a yoga mat">
+                        placeholder="e.g., DUMBBELLS, YOGA MAT">
                 </div>
 
-                <button type="submit"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Generate Workout
-                </button>
+                <button type="submit">GENERATE WORKOUT</button>
             </form>
 
-            <div id="workoutPlan" class="mt-8 hidden">
-                <h2 class="text-xl font-semibold mb-4">Your Workout Plan</h2>
-                <div id="workoutContent" class="whitespace-pre-wrap bg-gray-50 p-4 rounded-lg"></div>
+            <div id="workoutPlan" class="hidden">
+                <h2>YOUR WORKOUT PLAN</h2>
+                <div id="workoutContent"></div>
             </div>
 
-            <div id="error" class="mt-4 text-red-600 hidden"></div>
+            <div id="error" class="hidden"></div>
         </div>
     </div>
 
@@ -64,7 +190,8 @@
             workoutPlan.classList.add('hidden');
             errorDiv.classList.add('hidden');
             submitButton.disabled = true;
-            submitButton.textContent = 'Generating...';
+            submitButton.textContent = 'GENERATING...';
+            submitButton.classList.add('loading');
             
             try {
                 const response = await fetch(`${API_URL}/generate-workout`, {
@@ -88,12 +215,13 @@
                 workoutContent.textContent = data.workoutPlan;
                 workoutPlan.classList.remove('hidden');
             } catch (error) {
-                errorDiv.textContent = 'Failed to generate workout. Please try again.';
+                errorDiv.textContent = 'ERROR: FAILED TO GENERATE WORKOUT';
                 errorDiv.classList.remove('hidden');
                 console.error('Error:', error);
             } finally {
                 submitButton.disabled = false;
-                submitButton.textContent = 'Generate Workout';
+                submitButton.textContent = 'GENERATE WORKOUT';
+                submitButton.classList.remove('loading');
             }
         });
     </script>
