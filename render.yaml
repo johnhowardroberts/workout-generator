@@ -1,12 +1,9 @@
 services:
   - type: web
     name: workout-generator-api
-    env: ruby
+    env: docker
     plan: free
-    buildCommand: |
-      gem install bundler
-      bundle install
-    startCommand: bundle exec ruby workout_generator.rb
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: OPENAI_API_KEY
         sync: false
