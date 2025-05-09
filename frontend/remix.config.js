@@ -16,4 +16,8 @@ module.exports = {
   assetsBuildDirectory: "public/build",
   // This ensures the server build is in the correct location
   serverBuildPath: "build/index.js",
+  // Enable static site generation
+  server: "./server.js",
+  // Add trailing slashes to all routes
+  trailingSlash: true,
 }; 
