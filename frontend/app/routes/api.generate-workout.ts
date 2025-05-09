@@ -1,7 +1,9 @@
 import { json } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://127.0.0.1:4567";
+const BACKEND_URL = process.env.NODE_ENV === "production" 
+  ? "https://workout-generator-api.onrender.com"
+  : "http://127.0.0.1:4567";
 
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
@@ -31,7 +33,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error) {
     console.error("Error:", error);
     return json({ 
-      error: "Failed to generate workout. Please ensure the backend server is running.",
+      error: "Failed to generate workout. Please try again later.",
       details: error instanceof Error ? error.message : String(error)
     }, { status: 500 });
   }
