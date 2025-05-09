@@ -77,6 +77,8 @@
                         targetArea: form.targetArea.value,
                         equipment: form.equipment.value,
                     }),
+                    mode: 'cors',
+                    credentials: 'include'
                 });
                 
                 if (!response.ok) {
