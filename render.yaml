@@ -3,7 +3,11 @@ services:
     name: workout-generator-api
     env: ruby
     rubyVersion: 3.2.2
-    buildCommand: gem install bundler:2.4.22 && bundle install
+    buildCommand: |
+      gem uninstall bundler --all
+      gem install bundler:2.4.22
+      bundle config set --local deployment 'false'
+      bundle install
     startCommand: bundle exec ruby workout_generator.rb
     envVars:
       - key: OPENAI_API_KEY
