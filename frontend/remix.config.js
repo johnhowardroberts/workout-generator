@@ -1,7 +1,7 @@
 /** @type {import('@remix-run/dev').AppConfig} */
-module.exports = {
+export default {
   ignoredRouteFiles: ["**/.*"],
-  serverModuleFormat: "cjs",
+  serverModuleFormat: "esm",
   future: {
     v2_dev: true,
     v2_errorBoundary: true,
@@ -13,9 +13,9 @@ module.exports = {
   // This is needed for GitHub Pages deployment
   publicPath: "/workout-generator/",
   // This ensures assets are loaded correctly
-  assetsBuildDirectory: "public/build",
+  assetsBuildDirectory: "dist",
   // This ensures the server build is in the correct location
-  serverBuildPath: "build/index.js",
+  serverBuildPath: "dist/server/index.js",
   // Enable static site generation
   server: "./server.js",
   // Add trailing slashes to all routes
