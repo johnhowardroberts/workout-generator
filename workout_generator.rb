@@ -67,11 +67,23 @@ set :bind, '0.0.0.0'
 # Configure CORS
 use Rack::Cors do
   allow do
-    origins '*'
+    origins '*'  # In production, you might want to restrict this to your frontend domain
     resource '*',
       headers: :any,
-      methods: [:get, :post, :options]
+      methods: [:get, :post, :options],
+      credentials: true,
+      max_age: 86400
   end
+end
+
+# Handle OPTIONS requests for CORS preflight
+options '*' do
+  response.headers['Allow'] = 'GET, POST, OPTIONS'
+  response.headers['Access-Control-Allow-Origin'] = '*'
+  response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+  response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+  response.headers['Access-Control-Max-Age'] = '86400'
+  200
 end
 
 # Root route
