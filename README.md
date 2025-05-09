@@ -1,80 +1,61 @@
 # Workout Generator
 
-A web application that generates personalized workout plans using OpenAI's API. Built with Ruby and Remix.
+A full-stack application that generates personalized workout plans using AI. Built with Ruby (Sinatra) and Remix.
 
-## Project Structure
+## Features
 
-```
-workout-generator/
-├── backend/           # Ruby API
-│   ├── workout_generator.rb
-│   ├── Gemfile
-│   └── .env
-└── frontend/         # Remix UI
-    ├── app/
-    ├── public/
-    └── package.json
-```
+- Generate personalized workout plans based on:
+  - Duration
+  - Target area
+  - Available equipment
+- Modern, responsive UI
+- AI-powered workout generation using OpenAI
 
-## Backend Setup
+## Tech Stack
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+- Backend:
+  - Ruby
+  - Sinatra
+  - OpenAI API
+- Frontend:
+  - Remix
+  - React
+  - Tailwind CSS
 
+## Setup
+
+1. Clone the repository
 2. Install Ruby dependencies:
    ```bash
    bundle install
    ```
-
-3. Create a `.env` file with your OpenAI configuration:
-   ```
-   OPENAI_BASE_URL=https://proxy.shopify.ai/v1
-   OPENAI_API_KEY=your_api_key_here
-   ```
-
-4. Start the backend server:
-   ```bash
-   ruby workout_generator.rb
-   ```
-
-## Frontend Setup (Remix)
-
-1. Navigate to the frontend directory:
+3. Install frontend dependencies:
    ```bash
    cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
    npm install
    ```
+4. Create a `.env` file in the root directory with:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   OPENAI_BASE_URL=your_base_url_here
+   ```
 
-3. Start the development server:
+## Running the Application
+
+1. Start the backend server:
    ```bash
+   bundle exec ruby workout_generator.rb
+   ```
+
+2. In a new terminal, start the frontend:
+   ```bash
+   cd frontend
    npm run dev
    ```
 
-## Features
-
-- Natural language workout plan generation
-- Customizable workout duration
-- Target specific body areas
-- Equipment-based workout plans
-- Modern web interface with Remix
-- Responsive design
+3. Open http://localhost:5173 in your browser
 
 ## Development
 
-- Backend: Ruby
-- Frontend: Remix, React, TailwindCSS
-- API: OpenAI GPT-4
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request 
+- Backend API runs on http://localhost:4567
+- Frontend development server runs on http://localhost:5173 
