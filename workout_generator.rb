@@ -69,20 +69,15 @@ set :bind, '0.0.0.0'
 
 # Enable CORS
 before do
-  response.headers["Access-Control-Allow-Origin"] = "https://johnhowardroberts.github.io"
+  response.headers["Access-Control-Allow-Origin"] = "*"
   response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-  response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform"
-  response.headers["Access-Control-Allow-Credentials"] = "true"
-  response.headers["Access-Control-Max-Age"] = "86400"
+  response.headers["Access-Control-Allow-Headers"] = "*"
 end
 
 options "*" do
-  response.headers["Allow"] = "GET, POST, OPTIONS"
-  response.headers["Access-Control-Allow-Origin"] = "https://johnhowardroberts.github.io"
+  response.headers["Access-Control-Allow-Origin"] = "*"
   response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-  response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform"
-  response.headers["Access-Control-Allow-Credentials"] = "true"
-  response.headers["Access-Control-Max-Age"] = "86400"
+  response.headers["Access-Control-Allow-Headers"] = "*"
   200
 end
 
