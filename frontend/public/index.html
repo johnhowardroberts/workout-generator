@@ -152,29 +152,35 @@
 </head>
 <body>
     <div class="container">
-        <h1>WORKOUT GENERATOR</h1>
+        <h1>SQUEEZE IN A WFH WORKOUT</h1>
         
         <div class="form-container">
             <form id="workoutForm">
                 <div>
-                    <label for="duration">WORKOUT DURATION</label>
+                    <label for="duration">How long do you have to exercise today?</label>
                     <input type="text" id="duration" name="duration" required
-                        placeholder="e.g., 30 MINUTES">
+                        placeholder="e.g., I have 30 minutes, or just a quick 15-minute session">
                 </div>
 
                 <div>
-                    <label for="targetArea">TARGET AREA</label>
+                    <label for="exerciseType">What kind of exercise would you like to do today?</label>
+                    <input type="text" id="exerciseType" name="exerciseType" required
+                        placeholder="e.g., strength training, HIIT, yoga, mobility work, or cardio">
+                </div>
+
+                <div>
+                    <label for="targetArea">Which area of the body would you like to focus on?</label>
                     <input type="text" id="targetArea" name="targetArea" required
-                        placeholder="e.g., UPPER BODY">
+                        placeholder="e.g., upper body, full body, core, biceps, or legs">
                 </div>
 
                 <div>
-                    <label for="equipment">AVAILABLE EQUIPMENT</label>
+                    <label for="equipment">What equipment do you have available?</label>
                     <input type="text" id="equipment" name="equipment" required
-                        placeholder="e.g., DUMBBELLS, YOGA MAT">
+                        placeholder="e.g., I have some dumbbells and a yoga mat, or just my bodyweight">
                 </div>
 
-                <button type="submit">GENERATE WORKOUT</button>
+                <button type="submit">Generate My Workout Plan</button>
             </form>
 
             <div id="workoutPlan" class="hidden">
@@ -213,6 +219,7 @@
                     },
                     body: JSON.stringify({
                         duration: form.duration.value,
+                        exerciseType: form.exerciseType.value,
                         targetArea: form.targetArea.value,
                         equipment: form.equipment.value,
                     }),
