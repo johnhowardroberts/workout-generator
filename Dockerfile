@@ -22,6 +22,7 @@ EXPOSE 4567
 # Set environment variables
 ENV RACK_ENV=production
 ENV PORT=4567
+ENV SINATRA_ENV=production
 
 # Command to run the application
 CMD ["bundle", "exec", "ruby", "workout_generator.rb"] 

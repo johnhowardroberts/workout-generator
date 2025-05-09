@@ -3,6 +3,7 @@ require 'dotenv/load'
 require 'sinatra'
 require 'json'
 require 'rack/cors'
+require 'webrick'
 
 class WorkoutGenerator
   def initialize
@@ -67,6 +68,7 @@ set :environment, :production
 set :logging, true
 set :dump_errors, true
 set :show_exceptions, true
+set :server, 'webrick'
 
 # Configure CORS
 use Rack::Cors do
@@ -123,4 +125,8 @@ error do
 end
 
 # Start the server
-puts "Starting workout generator API server on port #{ENV['PORT'] || 4567}" 
+if __FILE__ == $0
+  port = ENV['PORT'] || 4567
+  puts "Starting workout generator API server on port #{port}"
+  Sinatra::Application.run!
+end 
