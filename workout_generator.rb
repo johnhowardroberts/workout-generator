@@ -74,6 +74,12 @@ use Rack::Cors do
   end
 end
 
+# Root route
+get '/' do
+  content_type :json
+  { status: 'ok', message: 'Workout Generator API is running' }.to_json
+end
+
 # API endpoint
 post '/generate-workout' do
   content_type :json
