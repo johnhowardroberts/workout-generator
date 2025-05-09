@@ -32,6 +32,8 @@ jobs:
         run: |
           cd frontend
           npm ci
+          npm list @remix-run/dev
+          npm list vite
       
       - name: Build
         run: |
@@ -48,6 +50,8 @@ jobs:
         run: |
           echo "Listing build output directory:"
           ls -la frontend/dist/client
+          echo "Listing frontend directory:"
+          ls -la frontend
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
