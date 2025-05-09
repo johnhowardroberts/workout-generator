@@ -13,6 +13,11 @@ export default defineConfig({
   build: {
     outDir: "dist/client",
     emptyOutDir: true,
+    target: "esnext",
+    minify: false,
+  },
+  optimizeDeps: {
+    disabled: true,
   },
   plugins: [
     remix({
