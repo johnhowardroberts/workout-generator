@@ -2,11 +2,9 @@ services:
   - type: web
     name: workout-generator-api
     env: ruby
-    rubyVersion: 3.2.2
+    plan: free
     buildCommand: |
-      gem uninstall bundler --all
-      gem install bundler:2.4.22
-      bundle config set --local deployment 'false'
+      gem install bundler
       bundle install
     startCommand: bundle exec ruby workout_generator.rb
     envVars:
