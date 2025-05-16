@@ -2,6 +2,8 @@ import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import { Form } from "@remix-run/react";
 
+const API_URL = 'https://workout-generator-0oa9.onrender.com';
+
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -44,7 +46,7 @@ export default function Index() {
     };
 
     try {
-      const response = await fetch("/api/generate-workout", {
+      const response = await fetch(`${API_URL}/api/generate-workout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
