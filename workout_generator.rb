@@ -4,6 +4,7 @@ require 'sinatra'
 require 'json'
 require 'rack/cors'
 require 'webrick'
+require 'sinatra/static'
 
 class WorkoutGenerator
   def initialize
@@ -69,6 +70,8 @@ set :logging, true
 set :dump_errors, true
 set :show_exceptions, true
 set :server, 'webrick'
+set :public_folder, File.join(File.dirname(__FILE__), 'frontend/public')
+set :static, true
 
 # Configure CORS
 use Rack::Cors do
@@ -91,14 +94,18 @@ options '*' do
   200
 end
 
-# Root route
+# Root route - serve the frontend
 get '/' do
-  content_type :json
-  { status: 'ok', message: 'Workout Generator API is running' }.to_json
+  send_file File.join(settings.public_folder, 'index.html')
+end
+
+# Serve static files
+get '/build/*' do
+  send_file File.join(settings.public_folder, 'build', params['splat'].first)
 end
 
 # API endpoint
-post '/generate-workout' do
+post '/api/generate-workout' do
   content_type :json
   
   begin
