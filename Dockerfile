@@ -2,9 +2,12 @@ FROM ruby:3.1.4
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies and Node.js
 RUN apt-get update && apt-get install -y \
     build-essential \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Gemfile and Gemfile.lock
@@ -15,6 +18,14 @@ RUN bundle install
 
 # Copy the rest of the application
 COPY . .
+
+# Install and build frontend
+WORKDIR /app/frontend
+RUN npm install
+RUN npm run build
+
+# Go back to app root
+WORKDIR /app
 
 # Expose the port the app runs on
 EXPOSE 4567
