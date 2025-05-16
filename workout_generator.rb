@@ -71,6 +71,7 @@ set :show_exceptions, true
 set :server, 'webrick'
 set :public_folder, File.join(File.dirname(__FILE__), 'frontend/public')
 set :static, true
+set :static_cache_control, [:public, :max_age => 300]
 
 # Configure CORS
 use Rack::Cors do
@@ -95,12 +96,12 @@ end
 
 # Root route - serve the frontend
 get '/' do
-  send_file File.join(settings.public_folder, 'index.html')
+  send_file File.join(settings.public_folder, 'build', 'index.html')
 end
 
 # Serve static files
-get '/build/*' do
-  send_file File.join(settings.public_folder, 'build', params['splat'].first)
+get '/assets/*' do
+  send_file File.join(settings.public_folder, 'build', 'assets', params['splat'].first)
 end
 
 # API endpoint

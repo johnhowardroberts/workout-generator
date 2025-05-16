@@ -15,6 +15,16 @@ export default defineConfig({
     emptyOutDir: true,
     target: "esnext",
     minify: false,
+    rollupOptions: {
+      input: {
+        main: "./app/routes/_index.tsx",
+      },
+      output: {
+        entryFileNames: "assets/[name].js",
+        chunkFileNames: "assets/[name].js",
+        assetFileNames: "assets/[name].[ext]",
+      },
+    },
   },
   optimizeDeps: {
     disabled: true,

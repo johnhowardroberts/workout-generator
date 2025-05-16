@@ -24,6 +24,11 @@ WORKDIR /app/frontend
 RUN npm install
 RUN npm run build
 
+# Debug: List contents of build directories
+RUN echo "Contents of /app/frontend/public:" && ls -la /app/frontend/public
+RUN echo "Contents of /app/frontend/public/build:" && ls -la /app/frontend/public/build
+RUN echo "Contents of /app/frontend/dist:" && ls -la /app/frontend/dist
+
 # Create the public/build directory if it doesn't exist
 RUN mkdir -p public/build
 
