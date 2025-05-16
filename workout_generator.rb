@@ -4,7 +4,6 @@ require 'sinatra'
 require 'json'
 require 'rack/cors'
 require 'webrick'
-require 'sinatra/static'
 
 class WorkoutGenerator
   def initialize
