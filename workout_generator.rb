@@ -64,7 +64,9 @@ class WorkoutGenerator < Sinatra::Base
         - Target Area: #{data['targetArea']}
         - Available Equipment: #{data['equipment']}
 
-        Please provide a detailed workout plan that includes:
+        Start with a brief, motivational introduction that acknowledges their busy schedule and encourages them to take this time for themselves.
+
+        Then provide a detailed workout plan that includes:
         1. A warm-up routine (10-15% of total time)
         2. Main exercises with sets, reps, and rest periods (70-80% of total time)
         3. A cool-down routine (10-15% of total time)
@@ -75,6 +77,8 @@ class WorkoutGenerator < Sinatra::Base
         - Warm-up: X minutes
         - Main Exercises: X minutes
         - Cool-down: X minutes
+
+        End with a brief summary of what they've accomplished and a positive note about how this workout will benefit them during their workday.
 
         Format the response in a clear, easy-to-follow structure.
       PROMPT
