@@ -1,20 +1,21 @@
 require 'openai'
 require 'dotenv/load'
 require 'sinatra'
-require 'sinatra/cors'
 require 'json'
 require 'rack/cors'
 require 'webrick'
 
 class WorkoutGenerator < Sinatra::Base
-  # Enable CORS
-  register Sinatra::Cors
-  set :allow_origin, "*"
-  set :allow_methods, "GET,HEAD,POST"
-  set :allow_credentials, true
-  set :dump_errors, false
-  set :raise_errors, true
-  set :show_exceptions, false
+  # Configure CORS
+  use Rack::Cors do
+    allow do
+      origins '*'
+      resource '*',
+        headers: :any,
+        methods: [:get, :post, :options],
+        max_age: 86400
+    end
+  end
 
   # Configure static file serving
   set :public_folder, File.join(File.dirname(__FILE__), 'frontend/dist')
