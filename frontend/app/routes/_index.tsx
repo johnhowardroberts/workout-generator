@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
@@ -12,6 +12,25 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const [workoutPlan, setWorkoutPlan] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [welcomeText, setWelcomeText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+
+  const fullText = "Hey there busy worker bee! I know you're busy, but it's important to keep moving during the day. I'm here to help you squeeze in a workout at home at lunch, or inbetween meetings. Just answer the following few questions, and I'll generate a tailored workout for you. Easy!";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setWelcomeText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typingInterval);
+      }
+    }, 30);
+
+    return () => clearInterval(typingInterval);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,6 +75,13 @@ export default function Index() {
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 <h1 className="text-3xl font-bold text-center mb-8">Workout Generator</h1>
                 
+                <div className="mb-8 text-gray-600">
+                  <p className="whitespace-pre-wrap">
+                    {welcomeText}
+                    {isTyping && <span className="animate-pulse">|</span>}
+                  </p>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="duration" className="block text-sm font-medium text-gray-700">
