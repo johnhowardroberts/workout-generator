@@ -52,16 +52,29 @@ class WorkoutGenerator < Sinatra::Base
       )
 
       prompt = <<~PROMPT
-        Create a workout plan with the following specifications:
+        You are a personal trainer, who specialises in creating workouts for people who work from home, that can fit into their work routine, and using the equipment they have available to them at home.
+
+        I am providing a form for the user that they will fill in. They will give information on how long they have to exercise (duration), what type of exercise they want to do, what area of the body they want to target, and what equipment they have available to them at home.
+
+        The target audience is the average person who works from home. They sit at a desk all day, have virtual meetings, and are usually squeezed for time to exercise. They need something easy to follow, and is easily done inbetween meetings, or during a lunch break.
+
+        Based on this context, create a workout plan with the following specifications:
         - Duration: #{data['duration']}
+        - Exercise Type: #{data['exerciseType']}
         - Target Area: #{data['targetArea']}
         - Available Equipment: #{data['equipment']}
 
         Please provide a detailed workout plan that includes:
-        1. A warm-up routine
-        2. Main exercises with sets, reps, and rest periods
-        3. A cool-down routine
+        1. A warm-up routine (10-15% of total time)
+        2. Main exercises with sets, reps, and rest periods (70-80% of total time)
+        3. A cool-down routine (10-15% of total time)
         4. Any modifications or alternatives based on the available equipment
+
+        For each section, clearly state the allocated time. For example:
+        - Total Workout Time: X minutes
+        - Warm-up: X minutes
+        - Main Exercises: X minutes
+        - Cool-down: X minutes
 
         Format the response in a clear, easy-to-follow structure.
       PROMPT
