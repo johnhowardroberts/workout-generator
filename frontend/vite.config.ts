@@ -9,9 +9,9 @@ declare module "@remix-run/node" {
 }
 
 export default defineConfig({
-  base: "/workout-generator/",
+  base: "/",
   build: {
-    outDir: "dist/client",
+    outDir: "public/build",
     emptyOutDir: true,
     target: "esnext",
     minify: false,

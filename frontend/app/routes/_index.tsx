@@ -73,12 +73,12 @@ export default function Index() {
           <div className="w-full">
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <h1 className="text-3xl font-bold text-center mb-8">Workout Generator</h1>
+                <h1 className="text-3xl font-bold text-center mb-8">SQUEEZE IN A WFH WORKOUT</h1>
                 
-                <div className="mb-8 text-gray-600">
-                  <p className="whitespace-pre-wrap">
+                <div className="mb-8 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                  <p className="text-gray-700 leading-relaxed">
                     {welcomeText}
-                    {isTyping && <span className="animate-pulse">|</span>}
+                    {isTyping && <span className="inline-block w-1 h-5 bg-indigo-500 animate-pulse ml-1"></span>}
                   </p>
                 </div>
 
