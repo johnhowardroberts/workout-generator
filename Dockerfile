@@ -6,7 +6,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,6 +23,9 @@ COPY . .
 WORKDIR /app/frontend
 RUN npm install
 RUN npm run build
+
+# Create the public/build directory if it doesn't exist
+RUN mkdir -p public/build
 
 # Go back to app root
 WORKDIR /app
